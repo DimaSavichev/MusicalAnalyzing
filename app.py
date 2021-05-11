@@ -18,8 +18,6 @@ def songs():
 
 @app.route('/analyze', methods=['POST'])
 def lyrics():
-    # musical = musicals[request.args.get('musical', '')]
-    print(request.values)
     song_url = request.form.get('song_url')
     lyrics = scrapLyrics(song_url)
     characters = analyze(lyrics)

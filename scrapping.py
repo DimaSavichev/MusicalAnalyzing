@@ -13,12 +13,10 @@ def scrapSongs(url):
     for x in soup.find_all("span"):
         x.extract()
     song_tags = soup.find_all("a")
-    # print(song_tags)
     songs = []
     for tag in song_tags:
-        print(tag['href'])
         songs.append(Song(tag.get_text(), tag['href']))
-    # print(songs)
+
     return songs
 
 

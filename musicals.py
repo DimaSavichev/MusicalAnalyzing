@@ -1,5 +1,5 @@
 import string
-
+import re
 
 class Musical:
     def __init__(self, name, url):
@@ -23,24 +23,33 @@ def ispunct(ch):
     return ch in string.punctuation
 
 
-def getName(s):
+def getNames(s):
     i = 0
-    while i < len(s) and (s[i].isupper() or s[i] in " .'") and (not ispunct(s[i]) or s[i] == '.'):
-        i += 1
-    return s[:i].strip()
+
+    # while i < len(s) and (s[i].isupper() or s[i] in " .'") and (not ispunct(s[i]) or s[i] == '.'):
+    #     i += 1
+    s = s.replace("’", "'")
+    result = re.findall(r"\b[A-Z .']+\b", s)
+    for i in range(len(result)):
+        result[i] = result[i].strip()
+
+    # result = list(filter(lambda x: x != '', result))
+    print(result)
+    return result
 
 
 def parseCharacters(lyrics):
     characters = dict()
     while lyrics.find("[") != -1:
         header = lyrics[lyrics.find("[") + 1: lyrics.find("]")]
-        name = getName(header)
+        names = getNames(header)
         lyrics = lyrics[lyrics.find("]") + 1:].strip()
         paragraph = lyrics[: lyrics.find("[")].strip()
         if paragraph != '':
-            if name not in characters.keys():
-                characters[name] = Character(name)
-            characters[name].paragraphs.append(paragraph)
+            for name in names:
+                if name not in characters.keys():
+                    characters[name] = Character(name)
+                characters[name].paragraphs.append(paragraph)
 
         lyrics = lyrics[lyrics.find("["):].strip()
 
@@ -73,8 +82,6 @@ def analyze(lyrics):
         character.word_count = count_words(character)
         character.emotionality = emotionality(character)
 
-    for name, character in characters.items():
-        print(name + ": ", character.emotionality)
 
     return characters
 
