@@ -9,8 +9,8 @@
 <body>
     <h1>Welcome to musical analyzing! Choose the musical you would like to see statistics for.</h1>
     <ul>
-        {% for x in musicals %}
-        <li><a href="/songs?musical={{ x.name }}"> {{ x.name }}</a></li>
+        {% for name, x in musicals.items() %}
+            <li><a href="/songs?musical={{ x.name }}"> {{ x.name }}</a></li>
         {% endfor %}
     </ul>
 </body>

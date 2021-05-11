@@ -12,7 +12,7 @@ def index():
 
 @app.route('/songs', methods=['GET'])
 def songs():
-    songs = scrapSongs("lol")  # musicals[request.args.get('musical', '')])
+    songs = scrapSongs(musicals[request.args.get('musical')].url)  # musicals[request.args.get('musical', '')])
     return render_template("songs.html", songs=songs)
 
 

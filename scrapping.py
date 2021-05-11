@@ -1,12 +1,25 @@
 from bs4 import BeautifulSoup
 import requests
-from musicals import Song
+from musicals import Song, musicals
+
 
 def scrapSongs(url):
-    # html = requests.get(url).text
-    # soup = BeautifulSoup(html, 'lxml')
-    return [Song("Beautiful", "https://genius.com/Heathers-the-musical-ensemble-beautiful-lyrics"),
-            Song("Candy Store", "https://genius.com/Heathers-the-musical-ensemble-candy-store-lyrics")]
+    html = requests.get(url).content
+    # print(html)
+    soup = BeautifulSoup(html, 'lxml')
+    song_tags = soup.find_all("div", {"class": "chart_row"})
+    soup = BeautifulSoup('\n'.join(list(map(str, song_tags))), 'lxml')
+
+    for x in soup.find_all("span"):
+        x.extract()
+    song_tags = soup.find_all("a")
+    # print(song_tags)
+    songs = []
+    for tag in song_tags:
+        print(tag['href'])
+        songs.append(Song(tag.get_text(), tag['href']))
+    # print(songs)
+    return songs
 
 
 def scrapLyrics(url):

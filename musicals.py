@@ -1,15 +1,17 @@
 import string
+
+
 class Musical:
     def __init__(self, name, url):
         self.name = name
         self.url = url
-        self.songs = dict()
 
 
 class Song:
     def __init__(self, name, url):
         self.name = name
         self.url = url
+
 
 class Character:
     def __init__(self, name):
@@ -23,7 +25,7 @@ def ispunct(ch):
 
 def getName(s):
     i = 0
-    while i < len(s) and (s[i].isupper() or s[i] == ' ' or s[i] == '.') and (not ispunct(s[i]) or s[i] == '.'):
+    while i < len(s) and (s[i].isupper() or s[i] in " .'") and (not ispunct(s[i]) or s[i] == '.'):
         i += 1
     return s[:i].strip()
 
@@ -77,4 +79,4 @@ def analyze(lyrics):
     return characters
 
 
-musicals = [Musical("Heathers", "https://genius.com/artists/Heathers-the-musical-ensemble"), Musical("Hamilton", "https://genius.com/albums/Lin-manuel-miranda/Hamilton-an-american-musical-original-broadway-cast-recording")]
+musicals = {"Heathers": Musical("Heathers", "https://genius.com/albums/Heathers-the-musical-ensemble/Heathers-the-musical-world-premiere-cast-recording"), "Hamilton": Musical("Hamilton", "https://genius.com/albums/Lin-manuel-miranda/Hamilton-an-american-musical-original-broadway-cast-recording")}
