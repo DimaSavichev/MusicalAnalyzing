@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Musical analyzing</title>
+    <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-
 </head>
 <body>
-    <h1>Welcome to musical analyzing! Choose the musical you would like to see statistics for.</h1>
     <ul>
-        {% for x in musicals %}
-        <li><a href="/songs?musical={{ x.name }}"> {{ x.name }}</a></li>
+        {% for song in songs %}
+            <li>
+                <form method="post" action="/analyze">
+                    <input class="btn btn-link" type="submit" value="{{  song.name }}" />
+                    <input type="hidden" name="song_url" value="{{ song.url }}">
+                </form>
+            </li>
         {% endfor %}
     </ul>
 </body>

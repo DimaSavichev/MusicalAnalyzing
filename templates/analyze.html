@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyze</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+</head>
+<body>
+    {{ song_name }}
+    <p>You may look up original lyrics <a href="{{ song_url }}">here</a>. </p>
+    <ul>
+    {% for name, c in characters.items() %}
+        <li>
+            {{ name }}
+            <ul>
+                {% for attr in params %}
+                    <li>{{ attr }}: {{ c.__getattribute__(attr) }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
