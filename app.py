@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from scrapping import scrapSongs, scrapLyrics
-from musicals import analyze, Song, Musical, musicals
+from musicals import analyze, musicals
 
 app = Flask(__name__)
 

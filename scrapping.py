@@ -1,11 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
-from musicals import Song, musicals
+from musicals import Song
 
 
 def scrapSongs(url):
     html = requests.get(url).content
-    # print(html)
     soup = BeautifulSoup(html, 'lxml')
     song_tags = soup.find_all("div", {"class": "chart_row"})
     soup = BeautifulSoup('\n'.join(list(map(str, song_tags))), 'lxml')
@@ -32,6 +31,5 @@ def scrapLyrics(url):
 
     body = body.get_text()
     body = body.replace("More on Genius", "")
-    # print(body)
-
+    body = body[body.index("["):]  # удаляем название и лишние переводы строки (начало - первая реплика)
     return body

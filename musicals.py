@@ -1,6 +1,7 @@
 import string
 import re
 
+
 class Musical:
     def __init__(self, name, url):
         self.name = name
@@ -24,17 +25,11 @@ def ispunct(ch):
 
 
 def getNames(s):
-    i = 0
-
-    # while i < len(s) and (s[i].isupper() or s[i] in " .'") and (not ispunct(s[i]) or s[i] == '.'):
-    #     i += 1
-    s = s.replace("’", "'")
+    s = s.replace("’", "'")  # проверено на опыте, иногда ставят разные апострофы
     result = re.findall(r"\b[A-Z .']+\b", s)
     for i in range(len(result)):
         result[i] = result[i].strip()
 
-    # result = list(filter(lambda x: x != '', result))
-    print(result)
     return result
 
 
@@ -57,7 +52,7 @@ def parseCharacters(lyrics):
 
 
 def count_words(character):
-    return sum([sum([i.strip(string.punctuation).isalpha() for i in j.split()]) for j in character.paragraphs])
+    return sum([len([i.strip(string.punctuation) for i in j.split()]) for j in character.paragraphs])
 
 
 def count_substrs(character, substr):
@@ -81,7 +76,6 @@ def analyze(lyrics):
     for name, character in characters.items():
         character.word_count = count_words(character)
         character.emotionality = emotionality(character)
-
 
     return characters
 
